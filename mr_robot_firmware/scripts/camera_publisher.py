@@ -1,4 +1,6 @@
 #! /usr/bin/env python3
+from picamera.array import PiRGBArray
+from picamera import PiCamera
 import rospy
 from sensor_msgs.msg import Image
 from cv_bridge import CvBridge
@@ -10,18 +12,25 @@ class CameraPublisher:
 
         self.pub = rospy.Publisher('video_frames', Image, queue_size=10)
         self.br = CvBridge()
-        self.cap = cv2.VideoCapture(0)
+
         self.rate = rospy.Rate(10)
         self.publish_message()
+
+        self.camera = PiCamera()
+        self.camera.resolution = (640, 480)
+        self.camera.framerate = 32
+        self.raw_capture = PiRGBArray(camera, size=(640, 480))
     
     def publish_message(self):
-        while not rospy.is_shutdown():
-   
-            ret, frame = self.cap.read()
-
-            if ret == True:
-              #rospy.loginfo('publishing video frame')
-              self.pub.publish(self.br.cv2_to_imgmsg(frame, "bgr8"))
+        for frame in camera.capture_continuous(self.raw_capture, format="bgr", use_video_port=True):
+            print(frame)
+            image = frame.array
+            #rospy.loginfo('publishing video frame')
+            self.pub.publish(self.br.cv2_to_imgmsg(image, "bgr8"))
+            key = cv2.waitKey(1) & 0xFF
+            raw_capture.truncate(0)
+            if key == ord("q"):
+                break
 
             self.rate.sleep()
 
