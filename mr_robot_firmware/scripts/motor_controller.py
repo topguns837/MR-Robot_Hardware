@@ -11,20 +11,25 @@ class Robot_Controller:
         rospy.init_node('controller')
         self.pub = rospy.Publisher('/cmd_vel', Twist, queue_size=10)
         rospy.Subscriber('/joy', Joy, self.Joy_callback)
+
+        self.LA_Pin = 12
+        self.LB_Pin = 13
+        self.RA_Pin = 18
+        self.RB_Pin = 19
         
         self.ya_axis = 0
         self.yb_axis = 0
         self.velocity_msg = Twist()
 
         GPIO.setmode(GPIO.BCM)
-        GPIO.setup(12, GPIO.OUT)
-        GPIO.setup(13, GPIO.OUT)
-        GPIO.setup(18, GPIO.OUT)
-        GPIO.setup(19, GPIO.OUT)
-        self.lapwm = GPIO.PWM(12, 1000)
-        self.lbpwm = GPIO.PWM(13, 1000)
-        self.rapwm = GPIO.PWM(18, 1000)
-        self.rbpwm = GPIO.PWM(19, 1000)
+        GPIO.setup(self.LA_Pin, GPIO.OUT)
+        GPIO.setup(self.LB_Pin, GPIO.OUT)
+        GPIO.setup(self.RA_Pin, GPIO.OUT)
+        GPIO.setup(self.RB_Pin, GPIO.OUT)
+        self.lapwm = GPIO.PWM((self.LA_Pin, 1000)
+        self.lbpwm = GPIO.PWM((self.LB_Pin, 1000)
+        self.rapwm = GPIO.PWM((self.RA_Pin, 1000)
+        self.rbpwm = GPIO.PWM((self.RB_Pin, 1000)
 
         self.lapwm.start(0)
         self.lbpwm.start(0)
