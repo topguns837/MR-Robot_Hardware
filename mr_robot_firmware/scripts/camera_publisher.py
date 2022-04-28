@@ -16,7 +16,7 @@ class CameraPublisher:
 
         self.camera = PiCamera()
         self.camera.resolution = (640, 480)
-        self.camera.framerate = 32
+        self.camera.framerate = 10
         self.raw_capture = PiRGBArray(self.camera, size=(640, 480))
 
         #self.rate = rospy.Rate(100)
