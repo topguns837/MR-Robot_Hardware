@@ -42,6 +42,13 @@ lbpwm.start(0)
 rapwm.start(0)
 rbpwm.start(0)
 
+print('MR_Robot Differential Drive Initialized with following Params-')
+print('Motor Max RPM:\t'+str(motor_rpm)+' RPM')
+print('Wheel Diameter:\t'+str(wheel_diameter)+' m')
+print('Wheel Separation:\t'+str(wheel_separation)+' m')
+print('Robot Max Speed:\t'+str(max_speed)+' m/sec')
+listener()
+
 def stop():
     #print('stopping')
     lapwm.ChangeDutyCycle(0)
