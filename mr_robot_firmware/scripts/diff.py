@@ -75,7 +75,9 @@ def callback(data):
         stop()
         
 def listener():
+    print("initializing...")
     rospy.init_node('cmdvel_listener', anonymous=False)
+    print("initialized")
     rospy.Subscriber("/cmd_vel", Twist, callback)
     rospy.spin()
 
