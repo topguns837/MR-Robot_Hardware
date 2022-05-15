@@ -116,9 +116,20 @@ lbpwm.start(0)
 rapwm.start(0)
 rbpwm.start(0)
 
-print('MR_Robot Differential Drive Initialized with following Params-')
-print('Motor Max RPM:\t'+str(motor_rpm)+' RPM')
-print('Wheel Diameter:\t'+str(wheel_diameter)+' m')
-print('Wheel Separation:\t'+str(wheel_separation)+' m')
-print('Robot Max Speed:\t'+str(max_speed)+' m/sec')
-listener()
+try:
+    print('MR_Robot Differential Drive Initialized with following Params-')
+    print('Motor Max RPM:\t'+str(motor_rpm)+' RPM')
+    print('Wheel Diameter:\t'+str(wheel_diameter)+' m')
+    print('Wheel Separation:\t'+str(wheel_separation)+' m')
+    print('Robot Max Speed:\t'+str(max_speed)+' m/sec')
+    listener()
+
+except KeyboardInterrupt:
+    print("keyboard intrupt")
+
+except:
+    print("Other error or exception occurred!")
+
+finally:
+    print("Cleaning up GPIO")
+    GPIO.cleanup() 
