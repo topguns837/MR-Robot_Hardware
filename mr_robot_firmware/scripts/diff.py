@@ -5,49 +5,7 @@ import RPi.GPIO as GPIO
 import time
 from math import pi
 
-motor_rpm = 100              #   max rpm of motor on full voltage 
-wheel_diameter = 0.095      #   in meters
-wheel_separation = 0.22     #   in meters
-max_pwm_val = 100           #   100 for Raspberry Pi , 255 for Arduino
-min_pwm_val = 30            #   Minimum PWM value that is needed for the robot to move
 
-wheel_radius = wheel_diameter/2
-circumference_of_wheel = 2 * pi * wheel_radius
-max_speed = (circumference_of_wheel*motor_rpm)/60   #   m/sec
-
-left_a = 12
-left_b = 13
-right_a = 21
-right_b = 22
-left_en = 6
-right_en = 26
-
-GPIO.setmode(GPIO.BCM)
-GPIO.cleanup()
-
-GPIO.setup(left_a, GPIO.OUT)
-GPIO.setup(left_b, GPIO.OUT)
-GPIO.setup(right_a, GPIO.OUT)
-GPIO.setup(right_b, GPIO.OUT)
-GPIO.setup(left_en, GPIO.OUT)
-GPIO.setup(right_en, GPIO.OUT)
-
-lapwm = GPIO.PWM(left_a, 1000)
-lbpwm = GPIO.PWM(left_b, 1000)
-rapwm = GPIO.PWM(right_a, 1000)
-rbpwm = GPIO.PWM(right_b, 1000)
-
-lapwm.start(0)
-lbpwm.start(0)
-rapwm.start(0)
-rbpwm.start(0)
-
-print('MR_Robot Differential Drive Initialized with following Params-')
-print('Motor Max RPM:\t'+str(motor_rpm)+' RPM')
-print('Wheel Diameter:\t'+str(wheel_diameter)+' m')
-print('Wheel Separation:\t'+str(wheel_separation)+' m')
-print('Robot Max Speed:\t'+str(max_speed)+' m/sec')
-listener()
 
 def stop():
     #print('stopping')
@@ -120,3 +78,47 @@ def listener():
     rospy.init_node('cmdvel_listener', anonymous=False)
     rospy.Subscriber("/cmd_vel", Twist, callback)
     rospy.spin()
+
+motor_rpm = 100              #   max rpm of motor on full voltage 
+wheel_diameter = 0.095      #   in meters
+wheel_separation = 0.22     #   in meters
+max_pwm_val = 100           #   100 for Raspberry Pi , 255 for Arduino
+min_pwm_val = 30            #   Minimum PWM value that is needed for the robot to move
+
+wheel_radius = wheel_diameter/2
+circumference_of_wheel = 2 * pi * wheel_radius
+max_speed = (circumference_of_wheel*motor_rpm)/60   #   m/sec
+
+left_a = 12
+left_b = 13
+right_a = 21
+right_b = 22
+left_en = 6
+right_en = 26
+
+GPIO.setmode(GPIO.BCM)
+#GPIO.cleanup()
+
+GPIO.setup(left_a, GPIO.OUT)
+GPIO.setup(left_b, GPIO.OUT)
+GPIO.setup(right_a, GPIO.OUT)
+GPIO.setup(right_b, GPIO.OUT)
+GPIO.setup(left_en, GPIO.OUT)
+GPIO.setup(right_en, GPIO.OUT)
+
+lapwm = GPIO.PWM(left_a, 1000)
+lbpwm = GPIO.PWM(left_b, 1000)
+rapwm = GPIO.PWM(right_a, 1000)
+rbpwm = GPIO.PWM(right_b, 1000)
+
+lapwm.start(0)
+lbpwm.start(0)
+rapwm.start(0)
+rbpwm.start(0)
+
+print('MR_Robot Differential Drive Initialized with following Params-')
+print('Motor Max RPM:\t'+str(motor_rpm)+' RPM')
+print('Wheel Diameter:\t'+str(wheel_diameter)+' m')
+print('Wheel Separation:\t'+str(wheel_separation)+' m')
+print('Robot Max Speed:\t'+str(max_speed)+' m/sec')
+listener()
