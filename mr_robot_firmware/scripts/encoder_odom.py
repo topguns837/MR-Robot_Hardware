@@ -28,6 +28,7 @@ rgt_Enc_A = 23
 rgt_Enc_B = 24
 
 wheel_rad = 0.094
+ticks_in_1_rotation = 545
 d_in_1_roatation = 0.5906#in meter
 
 fwrd_distance=0
