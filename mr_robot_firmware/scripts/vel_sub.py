@@ -11,6 +11,11 @@ def vel_data(data):
 	global vel	
 	rospy.loginfo("linear_velocity:%f",data.twist.twist.linear.x)
 	vel.linear.x = data.twist.twist.linear.x
+	vel.linear.y = data.twist.twist.linear.y
+	vel.linear.z = data.twist.twist.linear.z
+	vel.angular.x = data.twist.twist.linear.x
+	vel.angular.y = data.twist.twist.linear.y
+	vel.angular.z = data.twist.twist.linear.z
 	
 rospy.init_node("Vel_subs",anonymous=True)
 vel_pub = rospy.Publisher("/cmd_vel",Twist,queue_size = 10)
